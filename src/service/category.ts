@@ -18,9 +18,7 @@ const checkCategoryEndpoint = async () => {
 
 const getCategories = async () => {
   debugLog("GET categories called");
-  return await categoryRepository.find({
-    relations: ["paintings"],
-  });
+  return await categoryRepository.find();
 };
 
 const getCategoryById = async (categoryId: number) => {
