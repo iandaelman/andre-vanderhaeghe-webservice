@@ -20,7 +20,7 @@ const checkUserEndpoint = async () => {
 
 const getAllUsers = async () => {
   debugLog("GET all users endpoint called");
-  return await userRepository.find({ relations: ["paintings"] });
+  return await userRepository.find();
 };
 
 const getUserById = async (id: number) => {
