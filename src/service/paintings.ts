@@ -16,7 +16,9 @@ const checkPaintingEndpoint = async () => {
 
 const getPaintings = async () => {
   debugLog("GET paintings called");
-  return await paintingRepository.find();
+  return await paintingRepository.find({
+    relations: ["category"]
+  });
 };
 
 const getPaintingById = async (paintingId: number) => {
