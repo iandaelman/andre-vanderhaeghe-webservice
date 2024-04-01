@@ -38,6 +38,18 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
             type: "varchar",
           },
           {
+            name: "length",
+            type: "decimal",
+            precision: 10,
+            scale: 2,
+          },
+          {
+            name: "height",
+            type: "decimal",
+            precision: 10,
+            scale: 2,
+          },
+          {
             name: "price",
             type: "decimal",
             precision: 10,

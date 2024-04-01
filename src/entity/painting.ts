@@ -21,6 +21,10 @@ export class Painting {
   @Column({})
   imageFilepath: string;
   @Column()
+  length: number;
+  @Column()
+  height: number;
+  @Column()
   price: number;
   @ManyToMany(() => User, (user) => user.paintings)
   users: User[];
