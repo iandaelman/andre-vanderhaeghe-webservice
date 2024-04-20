@@ -43,11 +43,7 @@ title
 description
 imageFilePath
 price
-+categoryId
-
-[Category]
-*id
-name
++category
 
 [Exhibition]
 *id
@@ -61,8 +57,6 @@ endDate
 +userId
 +paintingId
 
-
-Painting *--1 Category
 users_paintings *--1 Painting
 users_paintings *--1 User
 

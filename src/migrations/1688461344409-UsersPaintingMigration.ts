@@ -25,8 +25,9 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
             length: "255",
           },
           {
-            name: "categoryId",
-            type: "BIGINT",
+            name: "category",
+            type: "varchar",
+            length: "255",
             isNullable: false,
           },
           {
@@ -88,27 +89,6 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
 
     await queryRunner.createTable(
       new Table({
-        name: "category",
-        columns: [
-          {
-            name: "id",
-            type: "BIGINT",
-            isNullable: false,
-            isPrimary: true,
-            isGenerated: true,
-            generationStrategy: "increment",
-          },
-          {
-            name: "name",
-            type: "varchar",
-            length: "255",
-          },
-        ],
-      })
-    );
-
-    await queryRunner.createTable(
-      new Table({
         name: "users_paintings",
         columns: [
           {
@@ -159,17 +139,6 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
     );
 
     await queryRunner.createForeignKey(
-      "painting",
-      new TableForeignKey({
-        columnNames: ["categoryId"],
-        referencedColumnNames: ["id"],
-        referencedTableName: "category",
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-      })
-    );
-
-    await queryRunner.createForeignKey(
       "users_paintings",
       new TableForeignKey({
         columnNames: ["userId"],
@@ -196,7 +165,6 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
     await queryRunner.dropTable("users_paintings");
     await queryRunner.dropTable("user");
     await queryRunner.dropTable("painting");
-    await queryRunner.dropTable("category");
     await queryRunner.dropTable("exhibition");
   }
 }

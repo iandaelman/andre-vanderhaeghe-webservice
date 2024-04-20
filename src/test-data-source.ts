@@ -5,7 +5,6 @@ import { Painting } from "./entity/painting";
 import config from "../config/config";
 
 import { logger } from "./createServer";
-import { Category } from "./entity/category";
 import { Exhibition } from "./entity/exhibition";
 
 export const AppTestDataSource = new DataSource({
@@ -17,7 +16,7 @@ export const AppTestDataSource = new DataSource({
   database: config.database.database,
   synchronize: false,
   logging: false,
-  entities: [User, Painting, Category, Exhibition],
+  entities: [User, Painting, Exhibition],
   migrations: [],
   subscribers: [],
 });
