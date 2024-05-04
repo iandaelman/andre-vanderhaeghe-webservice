@@ -83,7 +83,6 @@ export default function installExhibitionRoute(app: any) {
 
   router.post(
     "/",
-    hasPermissions(permissions.write),
     validate(postExhibition.validationSceme),
     postExhibition
   );
