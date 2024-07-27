@@ -4,8 +4,6 @@ import Router from "koa-router";
 import { paintingsService } from "../service/paintings";
 import Joi from "joi";
 import validate from "./_validation";
-import { hasPermissions } from "../core/auth";
-import { permissions } from "../core/auth";
 
 const checkPaintingEndpoint = async (ctx: Koa.Context) => {
   ctx.body = await paintingsService.checkPaintingEndpoint();
@@ -61,7 +59,6 @@ export default function installPaintingsRoute(app: any) {
 
   router.put(
     "/:id",
-    hasPermissions(permissions.write),
     validate(putPainting.validationSceme),
     putPainting
   );

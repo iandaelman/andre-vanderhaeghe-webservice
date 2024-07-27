@@ -34,10 +34,12 @@ const config = {
     origin: configVariables.CORS_ORIGIN,
   },
   auth: {
-    jwksUri: configVariables.AUTH_JWKSURI,
-    audience: configVariables.AUTH_AUDIENCE,
-    issuer: configVariables.AUTH_ISSUER,
-    userInfo: configVariables.AUTH_USER_INFO,
+    argon: {
+      saltLength: 16,
+      hashLength: 32,
+      timeCost: 6,
+      memoryCost: 2 ** 17,
+    },
   },
 };
 

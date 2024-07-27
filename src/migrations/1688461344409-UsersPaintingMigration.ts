@@ -76,13 +76,25 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
             name: "name",
             type: "varchar",
             length: "255",
+            isNullable: false
           },
           {
-            name: "auth0Id",
+            name: "email",
             type: "varchar",
             length: "255",
-            isNullable: true,
+            isNullable: false,
+            isUnique: true,
           },
+          {
+            name: "password_hash",
+            type: "varchar",
+            isNullable: false,
+          },
+          {
+            name: "roles",
+            type: "json",
+            isNullable: false,
+          }
         ],
       })
     );

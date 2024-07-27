@@ -3,7 +3,6 @@ import { logger } from "../createServer";
 import { User } from "../entity/user";
 import { Painting } from "../entity/painting";
 import Koa from "koa";
-import { addUserInfo } from "../core/auth";
 import ServiceError from "../core/serviceError";
 
 const debugLog = (message: any) => {
@@ -37,59 +36,21 @@ const getUserById = async (id: number) => {
   return user;
 };
 
-const getUserByAuth0Id = async (ctx: Koa.Context) => {
-  let user = null;
-  try {
-    const auth0Id = ctx.state.user.sub;
-    debugLog(
-      "GET user with auth0Id " + auth0Id + " endpoint called in service layer"
-    );
-    user = await userRepository.findOne({
-      where: {
-        auth0Id: auth0Id,
-      },
-      relations: ["paintings"],
-    });
-
-    if (!user) {
-      logger.info("User not found with auth0Id " + auth0Id + " in DB");
-      logger.info("Trying to add user with auth0Id " + auth0Id + " in DB");
-      user = postUser(ctx);
-    }
-
-    return user;
-  } catch (err) {
-    logger.error(err);
-    throw ServiceError.forbidden("Incorrect authentication token provided");
-  }
-};
 
 const postUser = async (ctx: Koa.Context) => {
   debugLog("POST user endpoint called");
-
-  await addUserInfo(ctx);
   const user = new User();
   user.name = ctx.state.user.name;
-  user.auth0Id = ctx.state.user.sub;
+  user.email = ctx.state.user.email;
+  user.name = ctx.state.user.name;
+  user.name = ctx.state.user.name;
   user.paintings = [];
 
-  const checkUser = await userRepository.findOne({
-    where: {
-      auth0Id: user.auth0Id,
-    },
-  });
 
-  if (checkUser) {
-    logger.info("User already exists in DB with auth0Id " + user.auth0Id);
-    throw ServiceError.forbidden(
-      "User already exists in DB with auth0Id " + user.auth0Id,
-      user.auth0Id
-    );
-  } else {
-    logger.info("User with auth0Id " + user.auth0Id + " is being added in DB");
-    const savedUser: User = await userRepository.save(user);
-    return savedUser;
-  }
+  logger.info("User with email " + user.email + " is being added in DB");
+  const savedUser: User = await userRepository.save(user);
+  return savedUser;
+
 };
 
 const putUser = async (ctx: any) => {
@@ -132,8 +93,8 @@ const deleteUser = async (ctx: Koa.Context) => {
   if (!user) {
     throw ServiceError.notFound(
       "User not found with id " +
-        Number(ctx.params.id) +
-        " and thus not deleted",
+      Number(ctx.params.id) +
+      " and thus not deleted",
       Number(ctx.params.id)
     );
   }
@@ -198,9 +159,9 @@ const removeUserPainting = async (ctx: Koa.Context) => {
   if (!userPaintingIds.includes(Number(ctx.params.paintingId))) {
     throw ServiceError.forbidden(
       "User with id " +
-        Number(ctx.params.userId) +
-        " does not have painting with id " +
-        Number(ctx.params.paintingId),
+      Number(ctx.params.userId) +
+      " does not have painting with id " +
+      Number(ctx.params.paintingId),
       Number(ctx.params.userId)
     );
   }
@@ -217,7 +178,6 @@ export const usersService = {
   checkUserEndpoint,
   getAllUsers,
   getUserById,
-  getUserByAuth0Id,
   postUser,
   putUser,
   deleteUser,

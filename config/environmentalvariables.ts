@@ -17,10 +17,6 @@ interface ENV {
   DATABASE_PORT: number | undefined;
   DATABASE_NAME: string | undefined;
   CORS_ORIGIN: string | undefined;
-  AUTH_JWKSURI: string | undefined;
-  AUTH_AUDIENCE: string | undefined;
-  AUTH_ISSUER: string | undefined;
-  AUTH_USER_INFO: string | undefined;
 }
 
 interface Config {
@@ -32,10 +28,6 @@ interface Config {
   DATABASE_PORT: number;
   DATABASE_NAME: string;
   CORS_ORIGIN: string;
-  AUTH_JWKSURI: string;
-  AUTH_AUDIENCE: string;
-  AUTH_ISSUER: string;
-  AUTH_USER_INFO: string;
 }
 
 // Loading process.env as ENV interface
@@ -49,10 +41,6 @@ const getConfig = (): ENV => {
     DATABASE_PORT: Number(process.env.DATABASE_PORT),
     DATABASE_NAME: process.env.DATABASE_NAME,
     CORS_ORIGIN: process.env.CORS_ORIGIN,
-    AUTH_JWKSURI: process.env.AUTH_JWKSURI,
-    AUTH_AUDIENCE: process.env.AUTH_AUDIENCE,
-    AUTH_ISSUER: process.env.AUTH_ISSUER,
-    AUTH_USER_INFO: process.env.AUTH_USER_INFO,
   };
 };
 

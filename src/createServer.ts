@@ -6,7 +6,6 @@ import Koa from "koa";
 import bodyParser from "koa-bodyparser";
 import cors from "koa2-cors";
 import installRestRoutes from "./rest";
-import { checkJwtToken } from "./core/auth";
 import * as emoji from "node-emoji";
 import { serializeError } from "serialize-error";
 import ServiceError from "./core/serviceError";
@@ -22,8 +21,6 @@ async function createServer() {
   logger.info("Starting server...");
 
   const app: Koa = new Koa();
-
-  app.use(checkJwtToken());
 
   app.use(async (ctx, next) => {
     const logger = getLogger();
