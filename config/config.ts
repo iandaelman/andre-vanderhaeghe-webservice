@@ -35,10 +35,10 @@ const config = {
   },
   auth: {
     argon: {
-      saltLength: 16,
-      hashLength: 32,
-      timeCost: 6,
-      memoryCost: 2 ** 17,
+      saltLength: configVariables.AUTH_ARGON_SALT_LENGTH,
+      hashLength: configVariables.AUTH_ARGON_HASH_LENGTH,
+      timeCost: configVariables.AUTH_ARGON_TIME_COST,
+      memoryCost: configVariables.AUTH_ARGON_MEMORY_COST,
     },
   },
 };

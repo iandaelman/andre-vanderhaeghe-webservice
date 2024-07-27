@@ -42,8 +42,8 @@ const postUser = async (ctx: Koa.Context) => {
   const user = new User();
   user.name = ctx.state.user.name;
   user.email = ctx.state.user.email;
-  user.name = ctx.state.user.name;
-  user.name = ctx.state.user.name;
+  user.password_hash = ctx.state.user.password_hash;
+  user.roles = ctx.state.user.roles;
   user.paintings = [];
 
 

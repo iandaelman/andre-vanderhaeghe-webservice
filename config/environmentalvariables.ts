@@ -17,6 +17,10 @@ interface ENV {
   DATABASE_PORT: number | undefined;
   DATABASE_NAME: string | undefined;
   CORS_ORIGIN: string | undefined;
+  AUTH_ARGON_SALT_LENGTH: number;
+  AUTH_ARGON_HASH_LENGTH: number;
+  AUTH_ARGON_TIME_COST: number;
+  AUTH_ARGON_MEMORY_COST: number;
 }
 
 interface Config {
@@ -28,6 +32,10 @@ interface Config {
   DATABASE_PORT: number;
   DATABASE_NAME: string;
   CORS_ORIGIN: string;
+  AUTH_ARGON_SALT_LENGTH: number;
+  AUTH_ARGON_HASH_LENGTH: number;
+  AUTH_ARGON_TIME_COST: number;
+  AUTH_ARGON_MEMORY_COST: number;
 }
 
 // Loading process.env as ENV interface
@@ -41,6 +49,10 @@ const getConfig = (): ENV => {
     DATABASE_PORT: Number(process.env.DATABASE_PORT),
     DATABASE_NAME: process.env.DATABASE_NAME,
     CORS_ORIGIN: process.env.CORS_ORIGIN,
+    AUTH_ARGON_SALT_LENGTH: Number(process.env.AUTH_ARGON_SALT_LENGTH),
+    AUTH_ARGON_HASH_LENGTH: Number(process.env.AUTH_ARGON_HASH_LENGTH),
+    AUTH_ARGON_TIME_COST: Number(process.env.AUTH_ARGON_TIME_COST),
+    AUTH_ARGON_MEMORY_COST: Number(process.env.AUTH_ARGON_MEMORY_COST)
   };
 };
 
