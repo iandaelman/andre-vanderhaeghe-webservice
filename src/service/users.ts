@@ -4,6 +4,7 @@ import { User } from "../entity/user";
 import { Painting } from "../entity/painting";
 import Koa from "koa";
 import ServiceError from "../core/serviceError";
+import { hashPassword } from "../core/password";
 
 const debugLog = (message: any) => {
   logger.debug(message);
@@ -40,17 +41,22 @@ const getUserById = async (id: number) => {
 const postUser = async (ctx: Koa.Context) => {
   debugLog("POST user endpoint called");
   const user = new User();
+  const password = ctx.state.user.password;
   user.name = ctx.state.user.name;
   user.email = ctx.state.user.email;
-  user.password_hash = ctx.state.user.password_hash;
-  user.roles = ctx.state.user.roles;
+  user.roles = ['user'];
   user.paintings = [];
+  try {
+    const passwordHash = await hashPassword(password);
+    user.password_hash = passwordHash;
+    logger.info("User with email " + user.email + " is being added in DB");
+    const savedUser: User = await userRepository.save(user);
+    return savedUser.id;
+  } catch (error) {
+    logger.error("User with email " + user.email + " could not be added in DB");
+    throw ServiceError.badRequest("Hashing password failed for user with email: ", user.email);
 
-
-  logger.info("User with email " + user.email + " is being added in DB");
-  const savedUser: User = await userRepository.save(user);
-  return savedUser;
-
+  }
 };
 
 const putUser = async (ctx: any) => {
