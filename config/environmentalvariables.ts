@@ -21,6 +21,10 @@ interface ENV {
   AUTH_ARGON_HASH_LENGTH: number;
   AUTH_ARGON_TIME_COST: number;
   AUTH_ARGON_MEMORY_COST: number;
+  JWT_SECRET: string;
+  JWT_EXPIRATION_INTERVAL: number;
+  JWT_ISSUER: string
+  JWT_AUDIENCE: string
 }
 
 interface Config {
@@ -36,6 +40,10 @@ interface Config {
   AUTH_ARGON_HASH_LENGTH: number;
   AUTH_ARGON_TIME_COST: number;
   AUTH_ARGON_MEMORY_COST: number;
+  JWT_SECRET: string;
+  JWT_EXPIRATION_INTERVAL: number;
+  JWT_ISSUER: string
+  JWT_AUDIENCE: string
 }
 
 // Loading process.env as ENV interface
@@ -52,7 +60,11 @@ const getConfig = (): ENV => {
     AUTH_ARGON_SALT_LENGTH: Number(process.env.AUTH_ARGON_SALT_LENGTH),
     AUTH_ARGON_HASH_LENGTH: Number(process.env.AUTH_ARGON_HASH_LENGTH),
     AUTH_ARGON_TIME_COST: Number(process.env.AUTH_ARGON_TIME_COST),
-    AUTH_ARGON_MEMORY_COST: Number(process.env.AUTH_ARGON_MEMORY_COST)
+    AUTH_ARGON_MEMORY_COST: Number(process.env.AUTH_ARGON_MEMORY_COST),
+    JWT_SECRET: process.env.JWT_SECRET,
+    JWT_EXPIRATION_INTERVAL: Number(process.env.JWT_EXPIRATION_INTERVAL),
+    JWT_ISSUER: process.env.JWT_ISSUER,
+    JWT_AUDIENCE: process.env.JWT_AUDIENCE
   };
 };
 

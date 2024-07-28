@@ -41,6 +41,12 @@ const config = {
       memoryCost: configVariables.AUTH_ARGON_MEMORY_COST,
     },
   },
+  jwt: {
+    secret: configVariables.JWT_SECRET,
+    expiration: configVariables.JWT_EXPIRATION_INTERVAL,
+    issuer: configVariables.JWT_ISSUER,
+    audience: configVariables.JWT_AUDIENCE,
+  },
 };
 
 export default config;
