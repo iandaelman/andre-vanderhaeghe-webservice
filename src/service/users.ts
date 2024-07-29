@@ -4,8 +4,6 @@ import { User } from "../entity/user";
 import { Painting } from "../entity/painting";
 import Koa from "koa";
 import ServiceError from "../core/serviceError";
-import { hashPassword } from "../core/password";
-
 const debugLog = (message: any) => {
   logger.debug(message);
 };
@@ -47,8 +45,7 @@ const postUser = async (ctx: Koa.Context) => {
   user.roles = ['user'];
   user.paintings = [];
   try {
-    const passwordHash = await hashPassword(password);
-    user.password_hash = passwordHash;
+    user.password_hash = password;
     logger.info("User with email " + user.email + " is being added in DB");
     const savedUser: User = await userRepository.save(user);
     return savedUser.id;

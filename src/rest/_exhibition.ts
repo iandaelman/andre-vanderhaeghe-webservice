@@ -2,7 +2,6 @@ import Koa from "koa";
 import { exhibitionService } from "../service/exhibition";
 import { logger } from "../createServer";
 import Router from "koa-router";
-import { hasPermissions, permissions } from "../core/auth";
 import validate from "./_validation";
 import BaseJoi from "joi";
 import JoiDate from "@joi/date";
@@ -89,14 +88,12 @@ export default function installExhibitionRoute(app: any) {
 
   router.put(
     "/:id",
-    hasPermissions(permissions.write),
     validate(putExhibition.validationSceme),
     putExhibition
   );
 
   router.delete(
     "/:id",
-    hasPermissions(permissions.write),
     validate(deleteExhibition.validationSceme),
     deleteExhibition
   );

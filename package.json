@@ -14,7 +14,6 @@
     "@types/koa-router": "^7.4.4",
     "@types/koa2-cors": "^2.0.2",
     "@types/node": "^18.11.3",
-    "argon2": "^0.40.3",
     "axios": "^1.4.0",
     "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "bcrypt": "^5.1.0",
