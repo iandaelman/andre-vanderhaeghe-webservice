@@ -4,6 +4,8 @@ import { User } from "../entity/user";
 import { Painting } from "../entity/painting";
 import Koa from "koa";
 import ServiceError from "../core/serviceError";
+import { generateJWt } from "../core/jwt";
+import { ROLES } from "../core/roles";
 const debugLog = (message: any) => {
   logger.debug(message);
 };
@@ -35,6 +37,33 @@ const getUserById = async (id: number) => {
   return user;
 };
 
+const getUserByEmail = async (email: string) => {
+  debugLog("GET user with email " + email + " endpoint called");
+  const user: User = await userRepository.findOne({
+    where: {
+      email: email,
+    },
+  });
+
+  if (!user) {
+    throw ServiceError.notFound("User not found with email " + email, email);
+  }
+  return user;
+}
+
+const registerUser = async ({ name, email, password }: { name: string, email: string, password: string }) => {
+  const password_hash = password;
+
+  const user = await userRepository.save({
+    name,
+    email,
+    password_hash,
+    roles: [ROLES.USER],
+    paintings: [],
+  });
+
+  return await makeLoginData(user);
+}
 
 const postUser = async (ctx: Koa.Context) => {
   debugLog("POST user endpoint called");
@@ -177,10 +206,39 @@ const removeUserPainting = async (ctx: Koa.Context) => {
   return user;
 };
 
+const makeExposedUser = (user: User) => ({
+  id: user.id,
+  name: user.name,
+  email: user.email,
+  roles: user.roles,
+});
+
+const makeLoginData = async (user: User) => {
+  const token = await generateJWt(user);
+  return {
+    user: makeExposedUser(user),
+    token,
+  };
+}
+
+const login = async (email: string, password: string) => {
+  const user = await getUserByEmail(email);
+  if (!user) {
+    throw ServiceError.unauthorized('The given email and password do not match', email);
+  }
+  if (user.password_hash !== password) {
+    throw ServiceError.unauthorized('The given email and password do not match', email);
+  }
+  return await makeLoginData(user);
+}
+
 export const usersService = {
   checkUserEndpoint,
   getAllUsers,
   getUserById,
+  getUserByEmail,
+  login,
+  registerUser,
   postUser,
   putUser,
   deleteUser,

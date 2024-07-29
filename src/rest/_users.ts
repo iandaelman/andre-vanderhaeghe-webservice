@@ -15,6 +15,20 @@ const getAllusers = async (ctx: Koa.Context) => {
   ctx.body = await usersService.getAllUsers();
 };
 
+const login = async (ctx: Koa.Context) => {
+  const { email, password } = ctx.request.body as { email: string, password: string };
+  const token = await usersService.login(email, password);
+  ctx.body = { token };
+}
+
+login.validationSceme = {
+  body: Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+  })
+};
+
+
 // GET user with id endpoint
 const getUserById = async (ctx: Koa.Context) => {
   ctx.body = await usersService.getUserById(ctx.params.id);
@@ -28,6 +42,21 @@ getUserById.validationSceme = {
 
 const postUser = async (ctx: Koa.Context) => {
   ctx.body = await usersService.postUser(ctx);
+};
+
+const registerUser = async (ctx: Koa.Context) => {
+  const requestBody = ctx.request.body as { name: string, email: string, password: string };
+  const token = await usersService.registerUser(requestBody);
+  ctx.body = { token };
+  ctx.status = 201;
+};
+
+registerUser.validationSceme = {
+  body: Joi.object({
+    name: Joi.string().max(255),
+    email: Joi.string().email().required(),
+    password: Joi.string().required().min(8).max(255),
+  }),
 };
 
 const putUser = async (ctx: Koa.Context) => {
@@ -103,6 +132,8 @@ export default function installUsersRoute(app: any) {
 
 
   router.post("/register", postUser);
+
+  router.post("/login", validate(login.validationSceme), login);
 
   router.put(
     "/:id",
