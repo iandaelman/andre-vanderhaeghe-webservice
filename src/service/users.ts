@@ -6,6 +6,10 @@ import Koa from "koa";
 import ServiceError from "../core/serviceError";
 import { generateJWt } from "../core/jwt";
 import { ROLES } from "../core/roles";
+import { getLogger } from "../core/logging";
+import { verifyJWT } from "../core/jwt";
+
+
 const debugLog = (message: any) => {
   logger.debug(message);
 };
@@ -232,6 +236,33 @@ const login = async (email: string, password: string) => {
   return await makeLoginData(user);
 }
 
+const checkAndParseSession = async (authHeader: string) => {
+  if (!authHeader) {
+    throw ServiceError.unauthorized('No authorization header provided');
+  }
+  if (!authHeader.startsWith('Bearer ')) {
+    throw ServiceError.unauthorized('Invalid authorization header provided');
+  }
+  const authToken: string = authHeader.substring(7);
+
+  try {
+    const { roles, userId }: { roles: string[], userId: number } = await verifyJWT(authToken);
+
+    return { authToken, roles, userId };
+  } catch (error) {
+    getLogger().error('Error generating JWT', error);
+    ServiceError.unauthorized('Invalid token provided');
+  }
+}
+
+const checkRole = (role: string, roles: string[]) => {
+  const hasPermission = roles.includes(role);
+  if (!hasPermission) {
+    throw ServiceError.forbidden('User does not have the required role');
+  }
+}
+
+
 export const usersService = {
   checkUserEndpoint,
   getAllUsers,
@@ -244,4 +275,7 @@ export const usersService = {
   deleteUser,
   saveUserPainting,
   removeUserPainting,
+  checkAndParseSession,
+  checkRole,
 };
+

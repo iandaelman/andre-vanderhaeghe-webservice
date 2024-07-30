@@ -30,3 +30,20 @@ export const generateJWt = (user: User) => {
     });
   });
 }
+
+export const verifyJWT = (token: string): Promise<any> => {
+  const verifyOptions = {
+    audience: JWT_AUDIENCE,
+    issuer: JWT_ISSUER,
+    subject: 'auth',
+  }
+
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, JWT_SECRET, verifyOptions, (err, decoded) => {
+      if (err || !decoded) {
+        return reject(err || new Error('Invalid token'));
+      }
+      resolve(decoded);
+    });
+  });
+}

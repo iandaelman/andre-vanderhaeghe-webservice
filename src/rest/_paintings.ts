@@ -4,6 +4,8 @@ import Router from "koa-router";
 import { paintingsService } from "../service/paintings";
 import Joi from "joi";
 import validate from "./_validation";
+import { makeRequireRole, requireAuthentication } from "../core/auth";
+import { ROLES } from "../core/roles";
 
 const checkPaintingEndpoint = async (ctx: Koa.Context) => {
   ctx.body = await paintingsService.checkPaintingEndpoint();
@@ -47,12 +49,14 @@ export default function installPaintingsRoute(app: any) {
     prefix: "/paintings",
   });
 
+  const requireUser = makeRequireRole(ROLES.USER);
+
   router.get("/test", checkPaintingEndpoint);
 
   router.get("/", getPaintings);
 
   router.get(
-    "/:id",
+    "/:id", requireAuthentication, requireUser,
     validate(getPaintingById.validationSceme),
     getPaintingById
   );
