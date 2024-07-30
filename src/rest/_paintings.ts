@@ -50,6 +50,7 @@ export default function installPaintingsRoute(app: any) {
   });
 
   const requireUser = makeRequireRole(ROLES.USER);
+  const requireAdmin = makeRequireRole(ROLES.ADMIN);
 
   router.get("/test", checkPaintingEndpoint);
 
