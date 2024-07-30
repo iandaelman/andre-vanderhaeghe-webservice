@@ -49,15 +49,12 @@ export default function installPaintingsRoute(app: any) {
     prefix: "/paintings",
   });
 
-  const requireUser = makeRequireRole(ROLES.USER);
-  const requireAdmin = makeRequireRole(ROLES.ADMIN);
-
   router.get("/test", checkPaintingEndpoint);
 
   router.get("/", getPaintings);
 
   router.get(
-    "/:id", requireAuthentication, requireUser,
+    "/:id",
     validate(getPaintingById.validationSceme),
     getPaintingById
   );
