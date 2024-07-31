@@ -15,7 +15,7 @@ export const generateJWt = (user: User) => {
   }
 
   const signOptions = {
-    expirersIn: Math.floor(JWT_EXPIRATION_INTERVAL / 1000),
+    expiresIn: Math.floor(JWT_EXPIRATION_INTERVAL / 1000),
     audience: JWT_AUDIENCE,
     issuer: JWT_ISSUER,
     subject: 'auth',

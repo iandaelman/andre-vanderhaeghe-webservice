@@ -24,14 +24,6 @@ async function createServer() {
 
   app.use(async (ctx, next) => {
     const logger = getLogger();
-    logger.debug("Authorization: " + ctx.headers.authorization);
-    logger.debug("User: " + JSON.stringify(ctx.state.user));
-    logger.debug("JWT Error: " + ctx.state.jwtOriginalError);
-    await next();
-  });
-
-  app.use(async (ctx, next) => {
-    const logger = getLogger();
     logger.info(
       `${emoji.get("fast_forward")} Request: ${ctx.method} ${ctx.url}`
     );

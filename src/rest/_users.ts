@@ -4,6 +4,7 @@ import { logger } from "../createServer";
 import Router from "koa-router";
 import Joi from "joi";
 import validate from "./_validation";
+import { User } from "../entity/user";
 
 //Test endpoint
 const checkUserEndpoint = async (ctx: Koa.Context) => {
@@ -17,8 +18,8 @@ const getAllusers = async (ctx: Koa.Context) => {
 
 const login = async (ctx: Koa.Context) => {
   const { email, password } = ctx.request.body as { email: string, password: string };
-  const token = await usersService.login(email, password);
-  ctx.body = { token };
+  const response = await usersService.login(email, password);
+  ctx.body = { token: response.token, user: response.user };
 }
 
 login.validationSceme = {
