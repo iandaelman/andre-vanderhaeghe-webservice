@@ -4,7 +4,6 @@ import { logger } from "../createServer";
 import Router from "koa-router";
 import Joi from "joi";
 import validate from "./_validation";
-import { User } from "../entity/user";
 
 //Test endpoint
 const checkUserEndpoint = async (ctx: Koa.Context) => {
