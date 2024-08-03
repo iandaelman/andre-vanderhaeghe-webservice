@@ -2,7 +2,7 @@ import Koa from 'koa';
 import { usersService } from '../service/users';
 
 export const requireAuthentication = async (ctx: Koa.Context, next: any) => {
-  const { authorization } = ctx.headers;
+  const { authorization } = ctx.header;
 
   const { authToken, ...session } = await usersService.checkAndParseSession(authorization);
 
