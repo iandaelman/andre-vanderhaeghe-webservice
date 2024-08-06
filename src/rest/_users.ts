@@ -40,10 +40,6 @@ getUserById.validationSceme = {
   }),
 };
 
-const postUser = async (ctx: Koa.Context) => {
-  ctx.body = await usersService.postUser(ctx);
-};
-
 const registerUser = async (ctx: Koa.Context) => {
   const requestBody = ctx.request.body as { name: string, email: string, password: string };
   const token = await usersService.registerUser(requestBody);
@@ -131,7 +127,7 @@ export default function installUsersRoute(app: any) {
   );
 
 
-  router.post("/register", postUser);
+  router.post("/register", registerUser);
 
   router.post("/login", validate(login.validationSceme), login);
 

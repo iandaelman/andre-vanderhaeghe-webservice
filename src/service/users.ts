@@ -62,33 +62,12 @@ const registerUser = async ({ name, email, password }: { name: string, email: st
     name,
     email,
     password_hash,
-    roles: [ROLES.USER],
+    roles: JSON.stringify(["ROLES.USER"]) as any,
     paintings: [],
   });
 
   return await makeLoginData(user);
 }
-
-const postUser = async (ctx: Koa.Context) => {
-  debugLog("POST user endpoint called");
-  const user = new User();
-  const password = ctx.state.user.password;
-  user.name = ctx.state.user.name;
-  user.email = ctx.state.user.email;
-  user.roles = ['user'];
-  user.paintings = [];
-  try {
-    user.password_hash = password;
-    logger.info("User with email " + user.email + " is being added in DB");
-    const savedUser: User = await userRepository.save(user);
-    return savedUser.id;
-  } catch (error) {
-    logger.error("User with email " + user.email + " could not be added in DB");
-    throw ServiceError.badRequest("Hashing password failed for user with email: ", user.email);
-
-  }
-};
-
 const putUser = async (ctx: any) => {
   debugLog("PUT user with id " + ctx.params.id + " endpoint called");
 
@@ -270,7 +249,6 @@ export const usersService = {
   getUserByEmail,
   login,
   registerUser,
-  postUser,
   putUser,
   deleteUser,
   saveUserPainting,

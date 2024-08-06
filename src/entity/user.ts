@@ -24,6 +24,6 @@ export class User {
   @Column({ nullable: false })
   password_hash: string;
 
-  @Column({ nullable: false, type: "simple-array" })
+  @Column({ nullable: false, type: "json" })
   roles: string[];
 }
