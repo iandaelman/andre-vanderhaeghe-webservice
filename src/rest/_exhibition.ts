@@ -5,8 +5,7 @@ import Router from "koa-router";
 import validate from "./_validation";
 import BaseJoi from "joi";
 import JoiDate from "@joi/date";
-import { makeRequireRole, requireAuthentication } from "../core/auth";
-import { ROLES } from "../core/roles";
+import { requireAuthentication } from "../core/auth";
 const Joi = BaseJoi.extend(JoiDate);
 
 const checkExhibitionEndpoint = async (ctx: Koa.Context) => {
@@ -71,8 +70,6 @@ export default function installExhibitionRoute(app: any) {
   const router = new Router({
     prefix: "/exhibition",
   });
-
-  const requireAdmin = makeRequireRole(ROLES.ADMIN);
 
   router.get("/test", checkExhibitionEndpoint);
 

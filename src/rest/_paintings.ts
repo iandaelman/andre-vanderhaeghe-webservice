@@ -32,7 +32,8 @@ putPainting.validationSceme = {
   body: Joi.object({
     title: Joi.string(),
     description: Joi.string(),
-    imageFilepath: Joi.string(),
+    length: Joi.number().positive(),
+    height: Joi.number().positive(),
     price: Joi.number().positive(),
   }),
 };

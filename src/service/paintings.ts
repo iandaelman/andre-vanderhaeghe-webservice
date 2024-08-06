@@ -62,6 +62,14 @@ const putPainting = async (ctx: any) => {
     updatedPainting.price = Number(ctx.request.body.price);
   }
 
+  if (ctx.request.body.length) {
+    updatedPainting.length = Number(ctx.request.body.length);
+  }
+
+  if (ctx.request.body.height) {
+    updatedPainting.height = Number(ctx.request.body.height);
+  }
+
   await paintingRepository.update(Number(ctx.params.id), updatedPainting);
 
   const painting: Painting = await paintingRepository.findOne({
