@@ -16,7 +16,9 @@ const checkExhibitionEndpoint = async () => {
 
 const getExhibitions = async () => {
   debugLog("GET exhibitions called");
-  return await exhibitionRepository.find();
+  const response = await exhibitionRepository.find();
+  console.log(JSON.stringify(response));
+  return response;
 };
 
 const getExhibitionById = async (exhibitionId: number) => {
