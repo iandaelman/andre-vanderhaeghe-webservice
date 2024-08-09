@@ -83,7 +83,7 @@ export default function installExhibitionRoute(app: any) {
 
   router.post(
     "/",
-    // requireAuthentication,
+    requireAuthentication,
     validate(postExhibition.validationSceme),
     postExhibition
   );

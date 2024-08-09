@@ -5,7 +5,6 @@ import { Painting } from "../entity/painting";
 import Koa from "koa";
 import ServiceError from "../core/serviceError";
 import { generateJWt } from "../core/jwt";
-import { ROLES } from "../core/roles";
 import { getLogger } from "../core/logging";
 import { verifyJWT } from "../core/jwt";
 
