@@ -10,6 +10,6 @@ export class SeedingUsers1688562737955 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`DELETE * FROM users;`);
+    await queryRunner.query(`DELETE * FROM user;`);
   }
 }

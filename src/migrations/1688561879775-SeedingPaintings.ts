@@ -2,7 +2,7 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class SeedingPaintings1688561879775 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(`INSERT INTO painting (title,  category, description,imageFilepath,length, height, price)
+    await queryRunner.query(`INSERT INTO painting (title,  category, description,imagefilepath,length, height, price)
         VALUES
             ('De bloei van moeder aarde', 'Design', 'Description 1', 'deBloeiVanMoederAarde.jpg',10,10, 100),
             ('De esotherische bloem',  'Het Sensualisme', 'Description 2','deEsotherischeBloem.jpg',10,10, 200),

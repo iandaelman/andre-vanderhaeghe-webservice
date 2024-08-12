@@ -7,7 +7,7 @@ import { logger } from "./createServer";
 import { Exhibition } from "./entity/exhibition";
 
 export const AppDataSource = new DataSource({
-  type: "mysql",
+  type: "postgres",
   host: config.database.host,
   port: Number(config.database.port),
   username: config.database.username,

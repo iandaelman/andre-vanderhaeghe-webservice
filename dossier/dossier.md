@@ -41,7 +41,7 @@ auth0Id
 *id
 title
 description
-imageFilePath
+imagefilePath
 price
 +category
 

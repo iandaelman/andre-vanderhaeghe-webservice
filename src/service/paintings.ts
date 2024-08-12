@@ -54,8 +54,8 @@ const putPainting = async (ctx: any) => {
     updatedPainting.description = String(ctx.request.body.description);
   }
 
-  if (ctx.request.body.imageFilepath) {
-    updatedPainting.imageFilepath = String(ctx.request.body.imageFilepath);
+  if (ctx.request.body.imagefilepath) {
+    updatedPainting.imagefilepath = String(ctx.request.body.imagefilepath);
   }
 
   if (ctx.request.body.price) {

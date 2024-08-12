@@ -17,7 +17,7 @@ export class Painting {
   @Column()
   description: string;
   @Column({})
-  imageFilepath: string;
+  imagefilepath: string;
   @Column()
   length: number;
   @Column()

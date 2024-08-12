@@ -13,30 +13,28 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
         columns: [
           {
             name: "id",
-            type: "BIGINT",
-            isNullable: false,
+            type: "SERIAL",
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: "increment",
           },
           {
             name: "title",
             type: "varchar",
-            length: "255",
+            length: "255"
           },
           {
             name: "category",
             type: "varchar",
-            length: "255",
-            isNullable: false,
+            length: "255"
           },
           {
             name: "description",
             type: "varchar",
+            length: "255"
           },
           {
-            name: "imageFilepath",
+            name: "imagefilepath",
             type: "varchar",
+            length: "255"
           },
           {
             name: "length",
@@ -66,11 +64,8 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
         columns: [
           {
             name: "id",
-            type: "BIGINT",
-            isNullable: false,
+            type: "SERIAL",
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: "increment",
           },
           {
             name: "name",
@@ -89,6 +84,7 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
             name: "password_hash",
             type: "varchar",
             isNullable: false,
+            length: "255",
           },
           {
             name: "roles",
@@ -123,11 +119,8 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
         columns: [
           {
             name: "id",
-            type: "BIGINT",
-            isNullable: false,
+            type: "SERIAL",
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: "increment",
           },
           {
             name: "title",
@@ -139,11 +132,11 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
             type: "text",
           },
           {
-            name: "startDate",
+            name: "startdate",
             type: "date",
           },
           {
-            name: "endDate",
+            name: "enddate",
             type: "date",
           },
         ],

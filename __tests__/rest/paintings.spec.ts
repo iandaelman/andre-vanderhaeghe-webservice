@@ -36,7 +36,7 @@ describe("Test painting endpoints", () => {
       expect(response.status).toBe(200);
       expect(response.body).toContain("title");
       expect(response.body).toContain("description");
-      expect(response.body).toContain("imageFilePath");
+      expect(response.body).toContain("imagefilePath");
       expect(response.body).toContain("price");
     });
 
@@ -51,14 +51,14 @@ describe("Test painting endpoints", () => {
       const response = await request.put("/api/paintings/1").send({
         title: "testTitle",
         description: "testDescription",
-        imageFilePath: "testImageFilePath",
+        imagefilePath: "testImageFilePath",
         price: 1,
       });
       expect(response.status).toBe(200);
       expect(response.body.id).toBeTruthy();
       expect(response.body.title).toBe("testTitle");
       expect(response.body.description).toBe("testDescription");
-      expect(response.body.imageFilePath).toBe("testImageFilePath");
+      expect(response.body.imagefilePath).toBe("testImagefilePath");
       expect(response.body.price).toBe(1);
     });
 
