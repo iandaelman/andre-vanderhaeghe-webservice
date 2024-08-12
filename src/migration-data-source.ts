@@ -11,7 +11,7 @@ import { SeedingExhibition1692201761742 } from "./migrations/1692201761742-Seedi
 import { Exhibition } from "./entity/exhibition";
 
 export const AppMigrationDataSource = new DataSource({
-  type: "mysql",
+  type: "postgres",
   host: config.database.host,
   port: Number(config.database.port),
   username: config.database.username,

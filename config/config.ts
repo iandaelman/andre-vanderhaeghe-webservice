@@ -23,7 +23,7 @@ const config = {
     password: configVariables.DATABASE_PASSWORD,
     host: configVariables.DATABASE_HOST,
     port: configVariables.DATABASE_PORT,
-    type: "mysql",
+    type: "postgres",
     database: configVariables.DATABASE_NAME,
   },
   logger: {
