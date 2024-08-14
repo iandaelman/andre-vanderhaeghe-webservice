@@ -129,11 +129,9 @@ async function createServer() {
 
     start() {
       return new Promise<void>((resolve) => {
-        app.listen(config.PORT, () => {
-          logger.info(`Server started on port ${config.PORT}`);
-
-          resolve();
-        });
+        app.listen(config.PORT);
+        logger.info(`Server started on port ${config.PORT}`);
+        resolve();
       });
     },
 
