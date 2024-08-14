@@ -42,8 +42,8 @@ getUserById.validationSceme = {
 
 const registerUser = async (ctx: Koa.Context) => {
   const requestBody = ctx.request.body as { name: string, email: string, password: string };
-  const token = await usersService.registerUser(requestBody);
-  ctx.body = { token };
+  const data = await usersService.registerUser(requestBody);
+  ctx.body = { data };
   ctx.status = 201;
 };
 
