@@ -11,6 +11,7 @@ import { Painting } from "./painting";
 export class UserAccount {
   @PrimaryGeneratedColumn()
   id: number;
+
   @ManyToMany(() => Painting, (painting) => painting.useraccounts)
   @JoinTable({ name: "useraccounts_paintings" })
   paintings: Painting[];
