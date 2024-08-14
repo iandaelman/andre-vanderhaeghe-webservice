@@ -2,7 +2,7 @@ import { createServer } from "../../src/createServer";
 import supertest from "supertest";
 import { AppTestDataSource } from "../../src/test-data-source";
 
-describe("Test user endpoints", () => {
+describe("Test useraccount endpoints", () => {
   let server: any;
   let request: any;
 

@@ -9,7 +9,7 @@ export class Exhibition {
   @Column()
   description: string;
   @Column({ type: "date" })
-  startDate: Date;
+  startdate: Date;
   @Column({ type: "date" })
-  endDate: Date;
+  enddate: Date;
 }

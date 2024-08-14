@@ -18,7 +18,7 @@ const getAllusers = async (ctx: Koa.Context) => {
 const login = async (ctx: Koa.Context) => {
   const { email, password } = ctx.request.body as { email: string, password: string };
   const response = await usersService.login(email, password);
-  ctx.body = { token: response.token, user: response.user };
+  ctx.body = { token: response.token, useraccount: response.useraccount };
 }
 
 login.validationSceme = {
@@ -29,7 +29,7 @@ login.validationSceme = {
 };
 
 
-// GET user with id endpoint
+// GET useraccount with id endpoint
 const getUserById = async (ctx: Koa.Context) => {
   ctx.body = await usersService.getUserById(ctx.params.id);
 };
@@ -79,13 +79,13 @@ deleteUser.validationSceme = {
 };
 
 const saveUserPainting = async (ctx: Koa.Context) => {
-  const user = await usersService.getUserById(ctx.params.id);
-  ctx.body = await usersService.saveUserPainting(ctx, user.id);
+  const useraccount = await usersService.getUserById(ctx.params.id);
+  ctx.body = await usersService.saveUserPainting(ctx, useraccount.id);
 };
 
 saveUserPainting.validationSceme = {
   params: Joi.object({
-    paintingId: Joi.number().integer().positive(),
+    paintingid: Joi.number().integer().positive(),
   }),
 };
 
@@ -95,8 +95,8 @@ const removeUserPainting = async (ctx: Koa.Context) => {
 
 removeUserPainting.validationSceme = {
   params: Joi.object({
-    userId: Joi.number().integer().positive(),
-    paintingId: Joi.number().integer().positive(),
+    userid: Joi.number().integer().positive(),
+    paintingid: Joi.number().integer().positive(),
   }),
 };
 
@@ -120,7 +120,7 @@ export default function installUsersRoute(app: any) {
   router.get("/test", checkUserEndpoint);
 
   router.get(
-    "/userId/:id",
+    "/userid/:id",
 
     validate(getUserById.validationSceme),
     getUserById
@@ -144,13 +144,13 @@ export default function installUsersRoute(app: any) {
   );
 
   router.post(
-    "/:paintingId",
+    "/:paintingid",
     validate(saveUserPainting.validationSceme),
     saveUserPainting
   );
 
   router.delete(
-    "/:userId/:paintingId",
+    "/:userid/:paintingid",
     validate(removeUserPainting.validationSceme),
     removeUserPainting
   );

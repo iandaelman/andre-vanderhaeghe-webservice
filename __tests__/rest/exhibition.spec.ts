@@ -37,8 +37,8 @@ describe("Test exhibition endpoints", () => {
       expect(response.status).toBe(200);
       expect(response.body).toContain("title");
       expect(response.body).toContain("description");
-      expect(response.body).toContain("startDate");
-      expect(response.body).toContain("endDate");
+      expect(response.body).toContain("startdate");
+      expect(response.body).toContain("enddate");
     });
 
     it("should return 400 Bad request", async () => {
@@ -52,14 +52,14 @@ describe("Test exhibition endpoints", () => {
       const response = await request.post(url).send({
         title: "test",
         description: "Dit is test",
-        startDate: "2025-01-01",
-        endDate: "2025-01-02",
+        startdate: "2025-01-01",
+        enddate: "2025-01-02",
       });
       expect(response.status).toBe(200);
       expect(response.body.title).toBe("test");
       expect(response.body.description).toBe("Dit is test");
-      expect(response.body.startDate).toBe("2025-01-01");
-      expect(response.body.endDate).toBe("2025-01-02");
+      expect(response.body.startdate).toBe("2025-01-01");
+      expect(response.body.enddate).toBe("2025-01-02");
     });
 
     it("should return 400 Bad Request", async () => {
@@ -73,14 +73,14 @@ describe("Test exhibition endpoints", () => {
       const response = await request.put(url + "/1").send({
         title: "test2",
         description: "Dit is test2",
-        startDate: "2025-01-01",
-        endDate: "2025-01-02",
+        startdate: "2025-01-01",
+        enddate: "2025-01-02",
       });
       expect(response.status).toBe(200);
       expect(response.body.title).toBe("test2");
       expect(response.body.description).toBe("Dit is test2");
-      expect(response.body.startDate).toBe("2025-01-01");
-      expect(response.body.endDate).toBe("2025-01-02");
+      expect(response.body.startdate).toBe("2025-01-01");
+      expect(response.body.enddate).toBe("2025-01-02");
     });
 
     it("should return 400 Bad Request", async () => {

@@ -35,8 +35,8 @@ putExhibition.validationSceme = {
   body: Joi.object({
     title: Joi.string(),
     description: Joi.string(),
-    startDate: Joi.date().format("YYYY-MM-DD"),
-    endDate: Joi.date().format("YYYY-MM-DD").min(Joi.ref("startDate")),
+    startdate: Joi.date().format("YYYY-MM-DD"),
+    enddate: Joi.date().format("YYYY-MM-DD").min(Joi.ref("startdate")),
   }),
 };
 
@@ -48,8 +48,8 @@ postExhibition.validationSceme = {
   body: Joi.object({
     title: Joi.string(),
     description: Joi.string(),
-    startDate: Joi.date().format("YYYY-MM-DD"),
-    endDate: Joi.date().format("YYYY-MM-DD").min(Joi.ref("startDate")),
+    startdate: Joi.date().format("YYYY-MM-DD"),
+    enddate: Joi.date().format("YYYY-MM-DD").min(Joi.ref("startdate")),
   }),
 };
 

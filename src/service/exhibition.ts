@@ -51,12 +51,12 @@ const putExhibition = async (ctx: any) => {
     updatedExhibition.description = String(ctx.request.body.description);
   }
 
-  if (ctx.request.body.startDate) {
-    updatedExhibition.startDate = new Date(ctx.request.body.startDate);
+  if (ctx.request.body.startdate) {
+    updatedExhibition.startdate = new Date(ctx.request.body.startdate);
   }
 
-  if (ctx.request.body.endDate) {
-    updatedExhibition.endDate = new Date(ctx.request.body.endDate);
+  if (ctx.request.body.enddate) {
+    updatedExhibition.enddate = new Date(ctx.request.body.enddate);
   }
 
   await exhibitionRepository.update(ctx.params.id, updatedExhibition);
@@ -89,12 +89,12 @@ const postExhibition = async (ctx: any) => {
     exhibition.description = String(ctx.request.body.description);
   }
 
-  if (ctx.request.body.startDate) {
-    exhibition.startDate = new Date(ctx.request.body.startDate);
+  if (ctx.request.body.startdate) {
+    exhibition.startdate = new Date(ctx.request.body.startdate);
   }
 
-  if (ctx.request.body.endDate) {
-    exhibition.endDate = new Date(ctx.request.body.endDate);
+  if (ctx.request.body.enddate) {
+    exhibition.enddate = new Date(ctx.request.body.enddate);
   }
 
   await exhibitionRepository.save(exhibition);

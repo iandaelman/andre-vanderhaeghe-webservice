@@ -1,6 +1,6 @@
 import { AppDataSource } from "../data-source";
 import { logger } from "../createServer";
-import { User } from "../entity/user";
+import { UserAccount } from "../entity/useraccount";
 import { Painting } from "../entity/painting";
 import Koa from "koa";
 import ServiceError from "../core/serviceError";
@@ -13,12 +13,12 @@ const debugLog = (message: any) => {
   logger.debug(message);
 };
 
-const userRepository = AppDataSource.getRepository(User);
+const userRepository = AppDataSource.getRepository(UserAccount);
 const paintingRepository = AppDataSource.getRepository(Painting);
 
 const checkUserEndpoint = async () => {
-  debugLog("GET user endpoint called");
-  return "User endpoint works";
+  debugLog("GET useraccount endpoint called");
+  return "UserAccount endpoint works";
 };
 
 const getAllUsers = async () => {
@@ -27,37 +27,37 @@ const getAllUsers = async () => {
 };
 
 const getUserById = async (id: number) => {
-  debugLog("GET user with id " + id + " endpoint called");
-  const user: User = await userRepository.findOne({
+  debugLog("GET useraccount with id " + id + " endpoint called");
+  const useraccount: UserAccount = await userRepository.findOne({
     where: {
       id: id,
     },
   });
 
-  if (!user) {
-    throw ServiceError.notFound("User not found with id " + id, id);
+  if (!useraccount) {
+    throw ServiceError.notFound("UserAccount not found with id " + id, id);
   }
-  return user;
+  return useraccount;
 };
 
 const getUserByEmail = async (email: string) => {
-  debugLog("GET user with email " + email + " endpoint called");
-  const user: User = await userRepository.findOne({
+  debugLog("GET useraccount with email " + email + " endpoint called");
+  const useraccount: UserAccount = await userRepository.findOne({
     where: {
       email: email,
     },
   });
 
-  if (!user) {
-    throw ServiceError.notFound("User not found with email " + email, email);
+  if (!useraccount) {
+    throw ServiceError.notFound("UserAccount not found with email " + email, email);
   }
-  return user;
+  return useraccount;
 }
 
 const registerUser = async ({ name, email, password }: { name: string, email: string, password: string }) => {
   const password_hash = password;
 
-  const user = await userRepository.save({
+  const useraccount = await userRepository.save({
     name,
     email,
     password_hash,
@@ -65,20 +65,20 @@ const registerUser = async ({ name, email, password }: { name: string, email: st
     paintings: [],
   });
 
-  return await makeLoginData(user);
+  return await makeLoginData(useraccount);
 }
 const putUser = async (ctx: any) => {
-  debugLog("PUT user with id " + ctx.params.id + " endpoint called");
+  debugLog("PUT useraccount with id " + ctx.params.id + " endpoint called");
 
-  const user: User = new User();
+  const useraccount: UserAccount = new UserAccount();
 
   if (ctx.request.body.name) {
-    user.name = String(ctx.request.body.name);
+    useraccount.name = String(ctx.request.body.name);
   }
 
-  await userRepository.update(Number(ctx.params.id), user);
+  await userRepository.update(Number(ctx.params.id), useraccount);
 
-  const updatedUser: User = await userRepository.findOne({
+  const updatedUser: UserAccount = await userRepository.findOne({
     where: {
       id: Number(ctx.params.id),
     },
@@ -87,7 +87,7 @@ const putUser = async (ctx: any) => {
 
   if (!updatedUser) {
     throw ServiceError.notFound(
-      "User not found with id and not updated" + Number(ctx.params.id),
+      "UserAccount not found with id and not updated" + Number(ctx.params.id),
       Number(ctx.params.id)
     );
   }
@@ -96,17 +96,17 @@ const putUser = async (ctx: any) => {
 };
 
 const deleteUser = async (ctx: Koa.Context) => {
-  debugLog("DELETE user with id " + ctx.params.id + " endpoint called");
+  debugLog("DELETE useraccount with id " + ctx.params.id + " endpoint called");
 
-  const user = await userRepository.findOne({
+  const useraccount = await userRepository.findOne({
     where: {
       id: Number(ctx.params.id),
     },
   });
 
-  if (!user) {
+  if (!useraccount) {
     throw ServiceError.notFound(
-      "User not found with id " +
+      "UserAccount not found with id " +
       Number(ctx.params.id) +
       " and thus not deleted",
       Number(ctx.params.id)
@@ -114,104 +114,104 @@ const deleteUser = async (ctx: Koa.Context) => {
   }
 
   await userRepository.delete(Number(ctx.params.id));
-  return user;
+  return useraccount;
 };
 
-const saveUserPainting = async (ctx: Koa.Context, userId: number) => {
-  debugLog("POST user painting endpoint called");
+const saveUserPainting = async (ctx: Koa.Context, userid: number) => {
+  debugLog("POST useraccount painting endpoint called");
 
-  const user: User = await userRepository.findOne({
+  const useraccount: UserAccount = await userRepository.findOne({
     where: {
-      id: userId,
+      id: userid,
     },
     relations: ["paintings"],
   });
 
   const painting = await paintingRepository.findOne({
     where: {
-      id: Number(ctx.params.paintingId),
+      id: Number(ctx.params.paintingid),
     },
   });
 
-  if (!user) {
+  if (!useraccount) {
     throw ServiceError.notFound(
-      "User not found with auth0Id " + ctx.state.user.sub,
-      ctx.state.user.sub
+      "UserAccount not found with auth0Id " + ctx.state.useraccount.sub,
+      ctx.state.useraccount.sub
     );
   }
 
   if (!painting) {
     throw ServiceError.notFound(
-      "Painting not found with id " + Number(ctx.params.paintingId),
-      Number(ctx.params.paintingId)
+      "Painting not found with id " + Number(ctx.params.paintingid),
+      Number(ctx.params.paintingid)
     );
   }
 
-  user.paintings.push(painting);
-  await userRepository.save(user);
-  return user;
+  useraccount.paintings.push(painting);
+  await userRepository.save(useraccount);
+  return useraccount;
 };
 
 const removeUserPainting = async (ctx: Koa.Context) => {
-  debugLog("DELETE user painting endpoint called");
+  debugLog("DELETE useraccount painting endpoint called");
 
-  const user: User = await userRepository.findOne({
+  const useraccount: UserAccount = await userRepository.findOne({
     where: {
-      id: Number(ctx.params.userId),
+      id: Number(ctx.params.userid),
     },
     relations: ["paintings"],
   });
 
-  if (!user) {
+  if (!useraccount) {
     throw ServiceError.notFound(
-      "User not found with id " + Number(ctx.params.userId),
-      Number(ctx.params.userId)
+      "UserAccount not found with id " + Number(ctx.params.userid),
+      Number(ctx.params.userid)
     );
   }
 
-  const userPaintingIds = user.paintings.map((painting) => painting.id);
-  if (!userPaintingIds.includes(Number(ctx.params.paintingId))) {
+  const userPaintingIds = useraccount.paintings.map((painting) => painting.id);
+  if (!userPaintingIds.includes(Number(ctx.params.paintingid))) {
     throw ServiceError.forbidden(
-      "User with id " +
-      Number(ctx.params.userId) +
+      "UserAccount with id " +
+      Number(ctx.params.userid) +
       " does not have painting with id " +
-      Number(ctx.params.paintingId),
-      Number(ctx.params.userId)
+      Number(ctx.params.paintingid),
+      Number(ctx.params.userid)
     );
   }
 
-  user.paintings = user.paintings.filter(
-    (painting) => painting.id !== Number(ctx.params.paintingId)
+  useraccount.paintings = useraccount.paintings.filter(
+    (painting) => painting.id !== Number(ctx.params.paintingid)
   );
 
-  await userRepository.save(user);
-  return user;
+  await userRepository.save(useraccount);
+  return useraccount;
 };
 
-const makeExposedUser = (user: User) => ({
-  id: user.id,
-  name: user.name,
-  email: user.email,
-  roles: user.roles,
+const makeExposedUser = (useraccount: UserAccount) => ({
+  id: useraccount.id,
+  name: useraccount.name,
+  email: useraccount.email,
+  roles: useraccount.roles,
 });
 
-const makeLoginData = async (user: User) => {
-  const token = await generateJWt(user);
+const makeLoginData = async (useraccount: UserAccount) => {
+  const token = await generateJWt(useraccount);
   return {
-    user: makeExposedUser(user),
+    useraccount: makeExposedUser(useraccount),
     token,
   };
 }
 
 const login = async (email: string, password: string) => {
-  const user = await getUserByEmail(email);
-  if (!user) {
+  const useraccount = await getUserByEmail(email);
+  if (!useraccount) {
     throw ServiceError.unauthorized('The given email and password do not match', email);
   }
-  if (user.password_hash !== password) {
+  if (useraccount.password_hash !== password) {
     throw ServiceError.unauthorized('The given email and password do not match', email);
   }
-  return await makeLoginData(user);
+  return await makeLoginData(useraccount);
 }
 
 const checkAndParseSession = async (authHeader: string) => {
@@ -224,9 +224,9 @@ const checkAndParseSession = async (authHeader: string) => {
   const authToken: string = authHeader.substring(7);
 
   try {
-    const { roles, userId }: { roles: string[], userId: number } = await verifyJWT(authToken);
+    const { roles, userid }: { roles: string[], userid: number } = await verifyJWT(authToken);
 
-    return { authToken, roles, userId };
+    return { authToken, roles, userid };
   } catch (error) {
     getLogger().error('Error generating JWT', error);
     ServiceError.unauthorized('Invalid token provided');
@@ -236,7 +236,7 @@ const checkAndParseSession = async (authHeader: string) => {
 const checkRole = (role: string, roles: string[]) => {
   const hasPermission = roles.includes(role);
   if (!hasPermission) {
-    throw ServiceError.forbidden('User does not have the required role');
+    throw ServiceError.forbidden('UserAccount does not have the required role');
   }
 }
 

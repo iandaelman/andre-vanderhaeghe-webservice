@@ -19,19 +19,18 @@ const getPaintings = async () => {
   return await paintingRepository.find();
 };
 
-const getPaintingById = async (paintingId: number) => {
-  debugLog("GET painting with id " + paintingId + " endpoint called");
+const getPaintingById = async (paintingid: number) => {
+  debugLog("GET painting with id " + paintingid + " endpoint called");
   const painting: Painting = await paintingRepository.findOne({
     where: {
-      id: paintingId,
-    },
-    relations: ["users"],
+      id: paintingid,
+    }
   });
 
   if (!painting) {
     throw ServiceError.notFound(
-      "Painting not found with id " + paintingId,
-      paintingId
+      "Painting not found with id " + paintingid,
+      paintingid
     );
   }
   return painting;
@@ -76,7 +75,7 @@ const putPainting = async (ctx: any) => {
     where: {
       id: Number(ctx.params.id),
     },
-    relations: ["users"],
+    relations: ["useraccounts"],
   });
 
   if (!painting) {

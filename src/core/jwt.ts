@@ -1,5 +1,5 @@
 import config from "../../config/config";
-import { User } from "../entity/user";
+import { UserAccount } from "../entity/useraccount";
 import * as jwt from "jsonwebtoken";
 
 const JWT_AUDIENCE = config.jwt.audience;
@@ -8,10 +8,10 @@ const JWT_SECRET = config.jwt.secret;
 const JWT_EXPIRATION_INTERVAL = config.jwt.expiration;
 
 
-export const generateJWt = (user: User) => {
+export const generateJWt = (useraccount: UserAccount) => {
   const tokenData = {
-    userId: user.id,
-    roles: user.roles,
+    userid: useraccount.id,
+    roles: useraccount.roles,
   }
 
   const signOptions = {

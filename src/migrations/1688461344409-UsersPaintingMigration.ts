@@ -60,7 +60,7 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
 
     await queryRunner.createTable(
       new Table({
-        name: "user",
+        name: "useraccount",
         columns: [
           {
             name: "id",
@@ -97,15 +97,15 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
 
     await queryRunner.createTable(
       new Table({
-        name: "users_paintings",
+        name: "useraccounts_paintings",
         columns: [
           {
-            name: "userId",
+            name: "userid",
             type: "bigint",
             isPrimary: true,
           },
           {
-            name: "paintingId",
+            name: "paintingid",
             type: "bigint",
             isPrimary: true,
           },
@@ -144,20 +144,20 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
     );
 
     await queryRunner.createForeignKey(
-      "users_paintings",
+      "useraccounts_paintings",
       new TableForeignKey({
-        columnNames: ["userId"],
+        columnNames: ["userid"],
         referencedColumnNames: ["id"],
-        referencedTableName: "user",
+        referencedTableName: "useraccount",
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       })
     );
 
     await queryRunner.createForeignKey(
-      "users_paintings",
+      "useraccounts_paintings",
       new TableForeignKey({
-        columnNames: ["paintingId"],
+        columnNames: ["paintingid"],
         referencedColumnNames: ["id"],
         referencedTableName: "painting",
         onDelete: "CASCADE",
@@ -167,8 +167,8 @@ export class UsersPaintingMigration1688461344409 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("users_paintings");
-    await queryRunner.dropTable("user");
+    await queryRunner.dropTable("useraccounts_paintings");
+    await queryRunner.dropTable("useraccount");
     await queryRunner.dropTable("painting");
     await queryRunner.dropTable("exhibition");
   }

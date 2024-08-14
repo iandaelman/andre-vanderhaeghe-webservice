@@ -14,7 +14,9 @@ const getPaintings = async (ctx: Koa.Context) => {
 };
 
 const getPaintingById = async (ctx: Koa.Context) => {
-  ctx.body = await paintingsService.getPaintingById(ctx.params.id);
+  const response = await paintingsService.getPaintingById(ctx.params.id);
+  console.log(response);
+  ctx.body = response;
 };
 
 getPaintingById.validationSceme = {

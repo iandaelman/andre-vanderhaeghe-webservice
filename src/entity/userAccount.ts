@@ -8,11 +8,11 @@ import {
 import { Painting } from "./painting";
 
 @Entity()
-export class User {
+export class UserAccount {
   @PrimaryGeneratedColumn()
   id: number;
-  @ManyToMany(() => Painting, (painting) => painting.users)
-  @JoinTable({ name: "users_paintings" })
+  @ManyToMany(() => Painting, (painting) => painting.useraccounts)
+  @JoinTable({ name: "useraccounts_paintings" })
   paintings: Painting[];
 
   @Column({ nullable: false })

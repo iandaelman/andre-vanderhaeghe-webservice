@@ -4,7 +4,7 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { User } from "./user";
+import { UserAccount } from "./useraccount";
 
 @Entity({ name: "painting" })
 export class Painting {
@@ -24,6 +24,6 @@ export class Painting {
   height: number;
   @Column()
   price: number;
-  @ManyToMany(() => User, (user) => user.paintings)
-  users: User[];
+  @ManyToMany(() => UserAccount, (useraccount) => useraccount.paintings)
+  useraccounts: UserAccount[];
 }

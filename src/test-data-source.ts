@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { User } from "./entity/user";
+import { UserAccount } from "./entity/useraccount";
 import { Painting } from "./entity/painting";
 import config from "../config/config";
 
@@ -16,7 +16,7 @@ export const AppTestDataSource = new DataSource({
   database: config.database.database,
   synchronize: false,
   logging: false,
-  entities: [User, Painting, Exhibition],
+  entities: [UserAccount, Painting, Exhibition],
   migrations: [],
   subscribers: [],
 });

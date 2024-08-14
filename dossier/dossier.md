@@ -32,7 +32,7 @@ De interactiviteit van de site zit vooral bij de admin, een gewone ingelogde geb
 Indien de afbeelding niet beschikbaar is kan je onderstaande code gebruiken om de afbeelding te genereren in postman via een POST request naar https://kroki.io/erd/svg met als body de onderstaande code:
 
 ```
-[User]
+[UserAccount]
 *id
 name
 auth0Id
@@ -49,16 +49,16 @@ price
 *id
 title
 description
-startDate
-endDate
+startdate
+enddate
 
 
-[users_paintings]
-+userId
-+paintingId
+[useraccounts_paintings]
++userid
++paintingid
 
-users_paintings *--1 Painting
-users_paintings *--1 User
+useraccounts_paintings *--1 Painting
+useraccounts_paintings *--1 UserAccount
 
 ```
 

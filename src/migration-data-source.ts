@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 
-import { User } from "./entity/user";
+import { UserAccount } from "./entity/useraccount";
 import { Painting } from "./entity/painting";
 import config from "../config/config";
 import { UsersPaintingMigration1688461344409 } from "./migrations/1688461344409-UsersPaintingMigration";
@@ -19,7 +19,7 @@ export const AppMigrationDataSource = new DataSource({
   database: config.database.database,
   synchronize: true,
   logging: false,
-  entities: [User, Painting, Exhibition],
+  entities: [UserAccount, Painting, Exhibition],
   migrations: [
     UsersPaintingMigration1688461344409,
     SeedingPaintings1688561879775,
