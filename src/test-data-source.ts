@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { UserAccount } from "./entity/useraccount";
+import { UserAccount } from "../src/entity/useraccount";
 import { Painting } from "./entity/painting";
 import config from "../config/config";
 
