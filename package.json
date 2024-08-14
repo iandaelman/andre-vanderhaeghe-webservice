@@ -71,12 +71,11 @@
   },
   "scripts": {
     "start": "npx env-cmd nodemon src/server.ts",
-    "start:prod": "node src/server.ts",
+    "start:prod": "ts-node src/server.ts",
     "test": "npx env-cmd -f .env.test jest",
     "coverage": "test --coverage",
     "typeorm": "typeorm-ts-node-commonjs",
-    "migration": "npx typeorm-ts-node-commonjs -d ./src/migration-data-source.ts migration:run",
-    "type": "module"
+    "migration": "npx typeorm-ts-node-commonjs -d ./src/migration-data-source.ts migration:run"
   },
   "description": "AV painting api",
   "repository": "https://github.com/Web-IV/2223-webservices-iandaelman.git",
