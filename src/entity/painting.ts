@@ -9,21 +9,21 @@ import { UserAccount } from "./useraccount";
 @Entity({ name: "painting" })
 export class Painting {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
   @Column({ length: 255, nullable: false, unique: true })
-  title: string;
+  title!: string;
   @Column({ length: 255, nullable: false })
-  category: string;
+  category!: string;
   @Column()
-  description: string;
+  description!: string;
   @Column({})
-  imagefilepath: string;
+  imagefilepath!: string;
   @Column()
-  length: number;
+  length!: number;
   @Column()
-  height: number;
+  height!: number;
   @Column()
-  price: number;
+  price!: number;
   @ManyToMany(() => UserAccount, (useraccount) => useraccount.paintings)
-  useraccounts: UserAccount[];
+  useraccounts!: UserAccount[];
 }
