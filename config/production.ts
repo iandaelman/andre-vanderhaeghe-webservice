@@ -7,6 +7,10 @@ export const confProd = {
     port: 3306,
     name: "vdh_webservice",
   },
+  cors: {
+    origins: ['https://two324-frontendweb-iandaelman.onrender.com'], // 👈
+    maxAge: 3 * 60 * 60, // 3h in seconds
+  },
   port: 9000,
   auth: {
     argon: {
